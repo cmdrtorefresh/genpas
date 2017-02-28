@@ -1,0 +1,108 @@
+#! /usr/bin/env ruby
+
+require 'optparse'
+require 'ostruct'
+require 'pp'
+
+class OptparseExample
+
+  #
+  # Return a structure describing the options.
+  #
+  def self.parse(args)
+    # The options specified on the command line will be collected in *options*.
+    # We set default values here.
+
+    options = OpenStruct.new
+    options.lowercase = false
+    options.uppercase = false
+    options.numbers = false
+    options.special = false
+    options.length = 10
+    options.numbers_generated = 1
+    options.pool = []
+
+    opt_parser = OptionParser.new do |opts|
+      opts.banner = "Usage: genpas [options]"
+
+      opts.separator ""
+      opts.separator "Specific options:"
+
+      opts.on("number", "Characters generated") do |n|
+      end
+
+      opts.on("-l", "Include Lowercase") do |ext|
+        options.lowercase = true
+        options.pool += ("a".."z").to_a
+      end
+
+      opts.on("-u", "Include Uppercase") do |ext|
+        options.uppercase = true
+        options.pool += ("A".."Z").to_a
+      end
+
+      opts.on("-n", "Include Numbers") do |ext|
+        options.numbers = true
+        options.pool += ("0".."9").to_a
+      end
+
+      opts.on("-s", "Include Special Characters") do |ext|
+        options.special = true
+        options.pool += [",",".","!","?","@","&","%"]
+      end
+
+      opts.separator ""
+      opts.separator "Example: genpas 25 -luns"
+
+      opts.separator ""
+      opts.separator "Common options:"
+
+      # No argument, shows at tail.  This will print an options summary.
+      # Try it and see!
+      opts.on_tail("-h", "--help", "Show this message") do
+        puts opts
+        exit
+      end
+
+    end
+
+    if args[0].to_i.to_s == args[0]
+      numerical = args.shift
+      options.length = numerical.to_i
+    end
+
+    if args.last.to_i.to_s == args.last
+      numbers_generated = args.pop.to_i
+      options.numbers_generated = numbers_generated
+    end
+
+    opt_parser.parse!(args)
+    return options
+  end  # parse()
+
+end  # class OptparseExample
+
+def generate(number, pool)
+  a = Random.new
+  i = 0
+  password = ""
+  while i < number
+    idx = a.rand(pool.size)
+    password += pool[idx]
+    i += 1
+  end
+  return password
+end
+
+options = OptparseExample.parse(ARGV)
+pool = options.pool
+length = options.length
+numbers_gen = options.numbers_generated
+
+if numbers_gen == 1
+  puts generate(length, pool)
+else
+  numbers_gen.times do |n|
+    puts (n+1).to_s + ". " + generate(length, pool)
+  end
+end
