@@ -10,6 +10,10 @@ a simple random password Generator
 - Edit `~/.bash_profile` for MacOS. Add the following line `export PATH=/Users/me/Documents/Folder/password:$PATH`. Save.
 
 ### Usage
-- help : `genpas -h`
-- `genpas 15 -luns 2` to generate 2 strings with random lowercase, uppercase, numbers and special characters with length 15.
-- `genpas -lun` to generate 1 string with random lowercase, uppercase, and numbers with length 10 (default).
+- help : `genpas -h` or `genpas --help`
+- Default string length = 10
+- `genpas` to generate a string with random lowercase, uppercase, and numbers at default length (10).
+- `genpas 20` to generate a string with random lowercase, uppercase, and numbers at length 20.
+- `genpas 20 2` to generate 2 strings with random lowercase, uppercase, and numbers at length 20.
+- `genpas 15 -luns 2` to generate 2 strings with random lowercase, uppercase, numbers and special characters at length 15.
+- `genpas -luns` to generate 1 string with random lowercase, uppercase, and numbers at default length (10).
