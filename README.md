@@ -7,7 +7,7 @@ a simple random password Generator
 - Make sure you have Ruby installed. `ruby -v` to check (will tell you the version you're running). If Ruby is not installed, [download Ruby](https://www.ruby-lang.org/en/downloads/)
 - Go to the folder you'd like the file to reside. Let's say the path to this folder is "Users/me/Documents/Folder"
 - `git clone https://github.com/cmdrtorefresh/genpas.git`
-- Edit `~/.bash_profile` for MacOS. Add the following line `export PATH=/Users/me/Documents/Folder/password:$PATH`. Save.
+- Edit `~/.bash_profile` for MacOS. Add the following line `export PATH=/Users/me/Documents/Folder:$PATH`. (Again, replace '/Users/me/Documents/Folder' with the directory of your local git repo. Save.
 
 ### Usage
 - help : `genpas -h` or `genpas --help`
